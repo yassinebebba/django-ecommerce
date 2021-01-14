@@ -1,0 +1,78 @@
+{% extends 'shop/base.html' %}
+
+
+{% block content %}
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+        <div class="col-md-4 mb-4">
+
+            <!-- Heading -->
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Your Basket</span>
+                <span class="badge badge-secondary badge-pill">{{ request.user.basket.basketproduct_set.count }}</span>
+            </h4>
+
+            <!-- Cart -->
+            <ul class="list-group mb-3 z-depth-1">
+                {% for product in user_basket_products %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">{{ product.product.title }}</h6>
+                        <small class="text-muted">Quantity: {{ product.quantity }}</small>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#centralModalSm-{{ product.id }}">
+                            Delete
+                        </button>
+                    </div>
+                    <span class="text-muted">£{{ product.product.price }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div class="modal fade" id="centralModalSm-{{ product.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title w-100" id="myModalLabel">Delete Item</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>{{ product.product.title }}</strong> <br>
+                                    Are you sure you want to delete this item from your basket?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close
+                                    </button>
+                                    <form method="post" action="{% url 'shop:basket' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item" value="{{ product.id }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Promo code</h6>
+                        <small>EXAMPLECODE</small>
+                    </div>
+                    <span class="text-success">-$5</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (GBP)</span>
+                    <strong>£{{ total }}</strong>
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <a href="{% url 'shop:checkout' %}" type="button" class="btn btn-primary" data-dismiss="modal">Checkout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
