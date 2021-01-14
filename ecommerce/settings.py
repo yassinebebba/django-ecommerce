@@ -129,8 +129,8 @@ EMAIL_HOST_USER = 'pythontesteverything@gmail.com'
 EMAIL_HOST_PASSWORD = 'pythoniscool'
 
 if DEBUG:
-    STRIPE_PUBLISHABLE_KEY = 'pk_test_51HIcjSKgUGQLn1q0vwJVysqWPUePEPel9tKzISLmTOyAGXYG7abwtS0l8Ltwnnw09Wx1VuB60uVyQ7iAZWfkLNXd00fAR9Mw0C'
-    STRIPE_SECRET_KEY = 'sk_test_51HIcjSKgUGQLn1q0S6zNUZJ6WYOo1uuBbqIyNK7T5j0ORWK7rkYJNPqhm0cYp0iC4XiEvdYxCPnOePgnj7NRYf8G00jRoSahee'
+    STRIPE_PUBLISHABLE_KEY = 'Public Key'
+    STRIPE_SECRET_KEY = 'Secret Key'
 else:
     # live keys
     STRIPE_PUBLISHABLE_KEY = ''
